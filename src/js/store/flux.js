@@ -1,16 +1,18 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
+			contactList: [
 				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
+					name: "Juan",
+					email: "juan@gmail.com",
+					phone: "55666777",
+					address: "Donde quieras"
 				},
 				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
+					name: "Daniel",
+					email: "daniel@gmail.com",
+					phone: "888999111",
+					address: "Donde NO quieras"
 				}
 			]
 		},
