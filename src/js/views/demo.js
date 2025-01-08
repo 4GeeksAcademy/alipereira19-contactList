@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import ContactCard from "../component/ContactCard.jsx";
 
-import { Context } from "../store/appContext";
+//import { Context } from "../store/appContext"
 
-import "../../styles/demo.css";
 
 export const Demo = () => {
-	const { store, actions } = useContext(Context);
+	//const { store, actions } = useContext(Context);
 
 	return (
 		<div className="container">
-			<h1>Hola</h1>
-			<Link to="/"><button className="btn-primary">Holaa</button></Link>
+			<ContactCard />
+			<br/>
+			<Link to="/"><button className="btn-primary">Otra vista</button></Link>
 		</div>
 	);
 };
