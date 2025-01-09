@@ -34,6 +34,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			createUser: async (slug) => {
+				try {
+					const response = await fetch(`https://playground.4geeks.com/contact/agendas/${slug}`, {
+						method: "POST",
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify(),
+					}) 
+					if (!response.ok) {
+						throw new Error("No sirvió :(");
+					}
+				} catch (error) {
+					console.error(error);
+					
+				}
+			},
+
 
 
 
