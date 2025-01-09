@@ -1,8 +1,10 @@
 import React from 'react'
 
-const ContactCard = () => {
+
+
+const ContactCard = ({ item }) => {
     return (
-        <div className="card mb-3" style={{
+        <div className="card mb-3" key={item.id} style={{
             width: '540px'
         }}>
             <div className="row g-0">
@@ -11,9 +13,11 @@ const ContactCard = () => {
                 </div>
                 <div className="col-md-8">
                     <div className="card-body">
-                        <h5 className="card-title">Card title</h5>
-                        <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p className="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <p className="card-text">Name: {item.name}</p>
+                        <p className="card-text">Address: {item.address}</p>
+                        <p className="card-text">Phone: {item.phone}</p>
+                        <p className="card-text">Email: {item.email}</p>
+                        <p className="card-footer"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
                 </div>
             </div>

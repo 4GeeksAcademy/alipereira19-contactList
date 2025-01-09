@@ -20,6 +20,7 @@ const AddContact = () => {
         <div className="container d-flex flex-column justify-content-start align-items-center mb-5" style={{
             height: '700px', width: '80%'
         }}>
+            <h1>Add Contact</h1>
             <label>
                 <p>Nombre:</p>
                 <input type="text" placeholder="Nombre" value={nombre} className="bg-light form-control" style={{ width: '500px' }} onChange={(e) => setNombre(e.target.value)} />
