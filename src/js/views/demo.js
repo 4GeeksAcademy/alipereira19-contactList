@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import ContactCard from "../component/ContactCard.jsx";
-import { Context } from "../store/appContext"
+import { Context } from "../store/appContext.js"
 
 
 export const Demo = () => {
 const { store, actions } = useContext(Context);
 const [slug, setSlug] = useState("");
+const [agendaName, setAgendaName] = useState("alip");
 
 const handlerGetContactList = async () =>{
     try { 
-        await actions.getList(); 
+        await actions.getList(agendaName); 
         
     } catch (error) {
         console.error(error);
@@ -24,25 +25,27 @@ const handlerGetContactList = async () =>{
             console.error(error);
         };
     };
+
+
+
 useEffect(() =>{
 handlerGetContactList();
 },[])
 	return (
 		<div className="container">
-            <div className="UserInput d-flex ">
-            <input placeholder="Ingresa usuario" type="text" onChange={(e) => {setSlug(e.target.value)}} value={slug}/>
-            <button className="btn btn-md btn-success ms-2"onClick={handlerCreateUser} >Crear</button>
-            <hr/>
-            </div>
+           <Link to="/"><button className="btn-primary">Add New Contact</button></Link>
 			<ul className="list-group mt-3">
+            
                {store.contactList.map((contact, index) => {
                     return (
-                        <ContactCard  item={contact}  />
+                        <div>
+                        <ContactCard  item={contact} key={index}   />
+                        </div>
                     )
                 })}
+                
             </ul>
-			<br/>
-			<Link to="/"><button className="btn-primary">Otra vista</button></Link>
+            
         </div>
     );
 };
