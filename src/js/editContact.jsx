@@ -1,37 +1,8 @@
-import React, { useActionState, useState, useContext } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { Context } from "./store/appContext.js";
+import React from 'react'
+import React, { useState, useContext } from "react";
 
-
-const AddContact = () => {
-
-    const [nombre, setNombre] = useState('');
-    const [email, setEmail] = useState('');
-    const [telefono, setTelefono] = useState('');
-    const [direccion, setDireccion] = useState('');
+const editContact = () => {
     const { store, actions } = useContext(Context);
-    const { id } = useParams();
-
-
-
-
-
-    const saveContact = () => {
-        const payload = {
-            name: nombre,
-            phone: telefono,
-            email: email,
-            address: direccion
-        };
-        if (!id) {
-            actions.addContact(payload);
-        } else {
-            actions.editarContacto(id, payload);
-        }
-
-    };
-
-
 
     return (
         <div className="container d-flex flex-column justify-content-start align-items-center mb-5" style={{
@@ -39,7 +10,7 @@ const AddContact = () => {
         }}>
             <h1>Add Contact</h1>
             <label>
-                <label htmlFor="input1" className="form-label">Full Name</label>
+                <p>Nombre:</p>
                 <input type="text" id="input1" placeholder="Nombre" value={nombre} className="bg-light form-control" style={{ width: '500px' }} onChange={(e) => setNombre(e.target.value)} required />
             </label>
             <br />
@@ -63,7 +34,6 @@ const AddContact = () => {
             <Link to="/contacts"><a>Volver a tus contactos</a></Link>
         </div >
     );
-};
+}
 
-
-export default AddContact; 
+export default editContact

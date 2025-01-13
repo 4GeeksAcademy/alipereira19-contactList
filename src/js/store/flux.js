@@ -17,10 +17,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     address: "Donde NO quieras",
                     id: 1
                 },
-                {
-                    currentName: ""
-                },
-            ]
+            ], 
+            currentName: ""
         },
         actions: {
 			borrarContacto: async (id) => {
@@ -72,10 +70,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                     console.error(error);
                 }
             },
-            setCurrentName: (agendaName) =>{
-                const store = getStore();
-                setStore({...store, currentName: agendaName})
-            },
+            setCurrentName: (actualName) => {
+				console.log("entro en el actions set current name y recibio: ", actualName)
+				const store= getStore();
+				setStore({...store, currentName:actualName});
+			},
             createUser: async (slug) => {
                 try {
                     const response = await fetch(`https://playground.4geeks.com/contact/agendas/${slug}`, {
@@ -112,6 +111,33 @@ const getState = ({ getStore, getActions, setStore }) => {
             delete: async (id) => {
                 console.log("funciono");
             },
+            editarContacto: async (id, contact) =>{
+                try {
+                    const store = getStore();
+                    const response = await fetch(`https://playground.4geeks.com/contact/agendas/alip/contacts/${id}`, {
+                     method: "PUT",
+                     headers: {
+                         'Content-Type': 'application/json'
+                     },
+                     body: JSON.stringify(contact)
+                 }) 
+                 if (!response.ok) {
+                    throw new Error(error); 
+                 } 
+                 const data = await response.json(contact);
+                 if (data) {
+                    const updatedList = store.contactList.map((contact) => {
+                        if (contact.id == id) {
+                            contact = data
+                        }
+                        return contact
+                    })
+                    setStore({ contactList: updatedList })
+                }
+                } catch (error) {
+                    console.error(error);
+                }
+               },
 		}
     };
 export default getState;

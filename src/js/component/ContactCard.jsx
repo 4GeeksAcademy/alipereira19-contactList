@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { Context } from "../store/appContext.js"
+import { Link } from 'react-router-dom'
 
 
 
@@ -26,8 +27,8 @@ const ContactCard = ({ item }) => {
                 </div>
                 <div className="col-md-8">
                     <div className="card-body">
-                        <h3>{store.test}</h3>
-                        <p className="card-text">Name: {item.name}</p>
+
+                        <h4 className="card-text"> {item.name}</h4>
                         <p className="card-text">Address: {item.address}</p>
                         <p className="card-text">Phone: {item.phone}</p>
                         <p className="card-text">Email: {item.email}</p>
@@ -35,9 +36,9 @@ const ContactCard = ({ item }) => {
                         <button className="btn btn-dark" onClick={handlerDelete}>
                             Borrar
                         </button>
-                        <button className="btn btn-dark ms-2" >
+                        <Link to={"/editContact/" + item.id} className="btn btn-link p-0 me-3">
                             Editar
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>

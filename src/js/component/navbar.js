@@ -7,11 +7,6 @@ export const Navbar = () => {
 			<Link to="/">
 				<span className="navbar-brand mb-0 h1 ms-3">Contact List</span>
 			</Link>
-			<div className="ml-auto">
-				<Link to="/demo">
-					<button className="btn btn-primary">Check the Context in action</button>
-				</Link>
-			</div>
 		</nav>
 	);
 };
