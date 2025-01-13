@@ -17,11 +17,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                     address: "Donde NO quieras",
                     id: 1
                 },
-            ], 
+            ],
             currentName: ""
         },
         actions: {
-			borrarContacto: async (id) => {
+            borrarContacto: async (id) => {
                 try {
                     const response = await fetch(
                         `https://playground.4geeks.com/contact/agendas/alip/contacts/${id}`,
@@ -44,7 +44,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 try {
                     const store = getStore();
                     const response0 = await fetch("https://playground.4geeks.com/contact/agendas")
-                    if(!response0.ok) {
+                    if (!response0.ok) {
                         throw new Error("No sirvió, pa:", response0)
                     }
                     const data0 = await response0.json();
@@ -55,26 +55,26 @@ const getState = ({ getStore, getActions, setStore }) => {
                             headers: {
                                 'Content-Type': 'application/json'
                             },
-                    });
-                    if (!newResponse.ok) {
-                        throw new Error("No sirvió, pa")
+                        });
+                        if (!newResponse.ok) {
+                            throw new Error("No sirvió, pa")
+                        }
                     }
-                }
-                const response = await fetch(`https://playground.4geeks.com/contact/agendas/${agendaName}/contacts`)
-                if (!response.ok) {
-                    throw new Error("no sirvió")
-                }
+                    const response = await fetch(`https://playground.4geeks.com/contact/agendas/${agendaName}/contacts`)
+                    if (!response.ok) {
+                        throw new Error("no sirvió")
+                    }
                     const data = await response.json();
-                    setStore({...store, contactList: [...data.contacts] })
+                    setStore({ ...store, contactList: [...data.contacts] })
                 } catch (error) {
                     console.error(error);
                 }
             },
             setCurrentName: (actualName) => {
-				console.log("entro en el actions set current name y recibio: ", actualName)
-				const store= getStore();
-				setStore({...store, currentName:actualName});
-			},
+                console.log("entro en el actions set current name y recibio: ", actualName)
+                const store = getStore();
+                setStore({ ...store, currentName: actualName });
+            },
             createUser: async (slug) => {
                 try {
                     const response = await fetch(`https://playground.4geeks.com/contact/agendas/${slug}`, {
@@ -91,7 +91,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     console.error(error);
                 }
             },
-            addContact: async (payload) =>{
+            addContact: async (payload) => {
                 try {
                     const response = await fetch("https://playground.4geeks.com/contact/agendas/alip/contacts", {
                         method: "POST",
@@ -107,25 +107,25 @@ const getState = ({ getStore, getActions, setStore }) => {
                     console.error(error);
                 }
             }
-            },
-            delete: async (id) => {
-                console.log("funciono");
-            },
-            editarContacto: async (id, contact) =>{
-                try {
-                    const store = getStore();
-                    const response = await fetch(`https://playground.4geeks.com/contact/agendas/alip/contacts/${id}`, {
-                     method: "PUT",
-                     headers: {
-                         'Content-Type': 'application/json'
-                     },
-                     body: JSON.stringify(contact)
-                 }) 
-                 if (!response.ok) {
-                    throw new Error(error); 
-                 } 
-                 const data = await response.json(contact);
-                 if (data) {
+        },
+        delete: async (id) => {
+            console.log("funciono");
+        },
+        editarContacto: async (id, contact) => {
+            try {
+                const store = getStore();
+                const response = await fetch(`https://playground.4geeks.com/contact/agendas/alip/contacts/${id}`, {
+                    method: "PUT",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(contact)
+                })
+                if (!response.ok) {
+                    throw new Error(error);
+                }
+                const data = await response.json();
+                if (data) {
                     const updatedList = store.contactList.map((contact) => {
                         if (contact.id == id) {
                             contact = data
@@ -134,12 +134,12 @@ const getState = ({ getStore, getActions, setStore }) => {
                     })
                     setStore({ contactList: updatedList })
                 }
-                } catch (error) {
-                    console.error(error);
-                }
-               },
-		}
-    };
+            } catch (error) {
+                console.error(error);
+            }
+        },
+    }
+};
 export default getState;
 
 

@@ -1,14 +1,37 @@
-import React from 'react'
-import React, { useState, useContext } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 
-const editContact = () => {
+const EditContact = () => {
     const { store, actions } = useContext(Context);
+    let navigate = useNavigate();
+
+    const [nombre, setNombre] = useState('');
+    const [email, setEmail] = useState('');
+    const [telefono, setTelefono] = useState('');
+    const [direccion, setDireccion] = useState('');
+    const { id } = useParams();
+
+
+
+
+
+    const saveContact = () => {
+        const payload = {
+            name: nombre,
+            phone: telefono,
+            email: email,
+            address: direccion
+        };
+        if (!id) {
+            actions.editarContacto(payload);
+        }
+
+    };
 
     return (
         <div className="container d-flex flex-column justify-content-start align-items-center mb-5" style={{
             height: '700px', width: '80%'
         }}>
-            <h1>Add Contact</h1>
+            <h1 className="text-center">{!id ? "Add a New Contact" : `Editing Contact: ${nombre}`}</h1>
             <label>
                 <p>Nombre:</p>
                 <input type="text" id="input1" placeholder="Nombre" value={nombre} className="bg-light form-control" style={{ width: '500px' }} onChange={(e) => setNombre(e.target.value)} required />
@@ -33,7 +56,7 @@ const editContact = () => {
             <br />
             <Link to="/contacts"><a>Volver a tus contactos</a></Link>
         </div >
-    );
+    )
 }
 
-export default editContact
+export default EditContact; 
