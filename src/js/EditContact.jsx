@@ -22,7 +22,7 @@ const EditContact = () => {
             address: direccion
         };
         if (!id) {
-            actions.editarContacto(payload);
+            actions.editarContacto(id, payload);
         }
 
     };

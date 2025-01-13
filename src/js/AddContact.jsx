@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Context } from "./store/appContext.js";
 
 
+
 const AddContact = () => {
 
     const [nombre, setNombre] = useState('');
@@ -16,18 +17,24 @@ const AddContact = () => {
 
 
 
-    const saveContact = () => {
-        const payload = {
-            name: nombre,
-            phone: telefono,
-            email: email,
-            address: direccion
-        };
-        if (!id) {
-            actions.addContact(payload);
-        } else {
-            actions.editarContacto(id, payload);
+    const saveContact = async () => {
+        try {
+            const payload = {
+                name: nombre,
+                phone: telefono,
+                email: email,
+                address: direccion
+            };
+            if (!id) {
+                actions.addContact(payload);
+            } else {
+                actions.editarContacto(payload);
+            }
+        } catch (error) {
+            console.error(error);
+
         }
+
 
     };
 

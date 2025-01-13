@@ -14,13 +14,42 @@ const getState = ({ getStore, getActions, setStore }) => {
                     name: "Daniel",
                     email: "daniel@gmail.com",
                     phone: "888999111",
-                    address: "Donde NO quieras",
+                    address: "Donde quieras",
                     id: 1
                 },
             ],
             currentName: ""
         },
         actions: {
+            editarContacto: async (id, contact) => {
+                try {
+                    const store = getStore();
+                    const response = await fetch(`https://playground.4geeks.com/contact/agendas/alip/contacts/${id}`, {
+                        method: "PUT",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(contact)
+                    })
+                    if (!response.ok) {
+                        throw new Error(error);
+                    }
+                    const data = await response.json();
+
+
+                    if (data) {
+                        const updatedList = store.contactList.map((contact) => {
+                            if (contact.id == id) {
+                                contact = data
+                            }
+                            return contact
+                        })
+                        setStore({ contactList: updatedList })
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            },
             borrarContacto: async (id) => {
                 try {
                     const response = await fetch(
@@ -110,33 +139,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         },
         delete: async (id) => {
             console.log("funciono");
-        },
-        editarContacto: async (id, contact) => {
-            try {
-                const store = getStore();
-                const response = await fetch(`https://playground.4geeks.com/contact/agendas/alip/contacts/${id}`, {
-                    method: "PUT",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(contact)
-                })
-                if (!response.ok) {
-                    throw new Error(error);
-                }
-                const data = await response.json();
-                if (data) {
-                    const updatedList = store.contactList.map((contact) => {
-                        if (contact.id == id) {
-                            contact = data
-                        }
-                        return contact
-                    })
-                    setStore({ contactList: updatedList })
-                }
-            } catch (error) {
-                console.error(error);
-            }
         },
     }
 };
