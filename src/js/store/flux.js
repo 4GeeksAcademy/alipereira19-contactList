@@ -21,31 +21,22 @@ const getState = ({ getStore, getActions, setStore }) => {
             currentName: ""
         },
         actions: {
-            editarContacto: async (id, contact) => {
+            editarContacto: async (id, payload) => {
                 try {
-                    const store = getStore();
                     const response = await fetch(`https://playground.4geeks.com/contact/agendas/alip/contacts/${id}`, {
-                        method: "PUT",
+                        method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(contact)
-                    })
+                        body: JSON.stringify(payload)
+                    });
                     if (!response.ok) {
-                        throw new Error(error);
+                        throw new Error("No se pudo editar el contacto");
                     }
-                    const data = await response.json();
-
-
-                    if (data) {
-                        const updatedList = store.contactList.map((contact) => {
-                            if (contact.id == id) {
-                                contact = data
-                            }
-                            return contact
-                        })
-                        setStore({ contactList: updatedList })
-                    }
+                    // Si la respuesta es exitosa, actualizamos el store
+                    const store = getStore();
+                    const updatedContact = store.contactList.find((contact) => contact.id == id);
+                    setStore({ ...store, contactList: [...store.contactList, updatedContact] });
                 } catch (error) {
                     console.error(error);
                 }

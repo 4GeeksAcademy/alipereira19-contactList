@@ -20,15 +20,16 @@ const AddContact = () => {
     const saveContact = async () => {
         try {
             const payload = {
-                name: nombre,
-                phone: telefono,
-                email: email,
-                address: direccion
+                "name": nombre,
+                "phone": telefono,
+                "email": email,
+                "address": direccion
             };
-            if (!id) {
-                actions.addContact(payload);
+            if (id) {
+                actions.editarContacto(id, payload);
+
             } else {
-                actions.editarContacto(payload);
+                actions.addContact(payload);
             }
         } catch (error) {
             console.error(error);

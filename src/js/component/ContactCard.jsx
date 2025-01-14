@@ -10,7 +10,7 @@ const ContactCard = ({ item }) => {
     const handlerDelete = async () => {
         try {
             await actions.borrarContacto(item.id);
-            //await actions.delete();
+
         } catch (error) {
             console.error(error);
 

@@ -36,10 +36,10 @@ export const Demo = () => {
             <Link to="/"><button className="btn-primary">Add New Contact</button></Link>
             <ul className="list-group mt-3">
 
-                {store.contactList.map((contact, id) => {
+                {store.contactList.map((contact, index) => {
                     return (
                         <div>
-                            <ContactCard item={contact} key={id} />
+                            <ContactCard item={contact} key={index} />
                         </div>
                     )
                 })}
